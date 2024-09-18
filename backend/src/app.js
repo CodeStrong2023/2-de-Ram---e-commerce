@@ -1,10 +1,20 @@
-import express from "express";
-import router from "./routes/index.routes";
+require('dotenv').config(); // Cargar el archivo .env al inicio
+const express = require('express');
+const connectDB = require('./config/Database');
+const userRoutes = require('./routes/UserRoutes');
 
 const app = express();
 
-app.use("/api", router)
+app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+// Conectar a la base de datos
+connectDB();
+
+// Rutas de la API
+app.use('/api', userRoutes);
+
+// Iniciar el servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
