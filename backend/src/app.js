@@ -1,7 +1,6 @@
-require('dotenv').config(); // Cargar el archivo .env al inicio
-const express = require('express');
-const connectDB = require('./config/Database');
-const userRoutes = require('./routes/UserRoutes');
+import express from "express";
+import connectDB from "./config/Database.js";
+import routes from "./routes/index.routes.js";
 
 const app = express();
 
@@ -11,10 +10,10 @@ app.use(express.json());
 connectDB();
 
 // Rutas de la API
-app.use('/api', userRoutes);
+app.use("/api", routes);
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
