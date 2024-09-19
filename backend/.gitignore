@@ -1,0 +1,32 @@
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv (variables de entorno)
+.env
+
+# Directorios de producción
+build/
+dist/
+
+# Sistema operativo
+.DS_Store   # MacOS
+Thumbs.db   # Windows
+
+# Editor de código
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Archivos de configuración de Git
+.git/
