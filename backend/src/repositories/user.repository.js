@@ -1,4 +1,3 @@
-const User = require('../models/User.js');
 
 class UserRepository {
     async create(userData) {
@@ -23,4 +22,5 @@ class UserRepository {
     }
 }
 
-module.exports = new UserRepository();
+export const userRepository = new UserRepository();
+

@@ -1,6 +1,6 @@
-const userRepository = require('../repositories/UserRepository');
 
-class UserService {
+
+export class UserService {
     async createUser(userData) {
         // Aquí puedes agregar lógica como encriptación de contraseñas o validaciones adicionales
         return await userRepository.create(userData);
@@ -23,4 +23,4 @@ class UserService {
     }
 }
 
-module.exports = new UserService();
+
