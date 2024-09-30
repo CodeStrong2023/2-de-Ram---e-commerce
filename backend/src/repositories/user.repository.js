@@ -1,3 +1,4 @@
+import User from '../models/user.model.js'; // Importación en estilo ES6
 
 class UserRepository {
     async create(userData) {
@@ -18,9 +19,10 @@ class UserRepository {
     }
 
     async delete(userId) {
+        // Borrado físico (si quisieras borrado lógico, ajustar esto)
         return await User.findByIdAndDelete(userId);
     }
 }
 
-export const userRepository = new UserRepository();
-
+const userRepository = new UserRepository();
+export default userRepository;

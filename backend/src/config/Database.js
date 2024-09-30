@@ -1,25 +1,20 @@
-require('dotenv').config();  // Esto carga las variables de entorno desde .env
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Cargar las variables de entorno
 
 const connectDB = async () => {
     try {
-        // Verifica si la variable de conexión está definida
-        const dbConnection = process.env.DB_CONNECTION;
-        if (!dbConnection) {
-            throw new Error("No se encontró la variable DB_CONNECTION en el archivo .env");
-        }
-
-        // Conectar a MongoDB
-        await mongoose.connect(dbConnection, {
+        const uri = 'mongodb+srv://2deram:admin@2deramecommerce.kybvs.mongodb.net/?retryWrites=true&w=majority&appName=2deRamEcommerce'; // Obtener la URI de MongoDB
+        await mongoose.connect(uri, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
         });
-
-        console.log('Connected to MongoDB Atlas');
+        console.log("MongoDB connected");
     } catch (error) {
-        console.error('Error connecting to MongoDB Atlas:', error.message);
-        process.exit(1);
+        console.error("MongoDB connection error:", error.message);
+        process.exit(1); // Salir del proceso si hay un error
     }
 };
 
-module.exports = connectDB;
+export default connectDB;
