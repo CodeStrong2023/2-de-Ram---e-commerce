@@ -1,26 +1,29 @@
+import { UserModel } from "../models/UserModel.model.js";
+
+
 
 class UserRepository {
-    async create(userData) {
-        const user = new User(userData);
-        return await user.save();
-    }
+    
+  async create(userData) {
+    
+    return await UserModel.create(userData);
+  }
 
-    async findById(userId) {
-        return await User.findById(userId);
-    }
+  async findById(userId) {
+    return await UserModel.findById(userId);
+  }
 
-    async findAll() {
-        return await User.find();
-    }
+  async findAll() {
+    return await UserModel.find();
+  }
 
-    async update(userId, userData) {
-        return await User.findByIdAndUpdate(userId, userData, { new: true });
-    }
+  async update(userId, userData) {
+    return await UserModel.findByIdAndUpdate(userId, userData, { new: true });
+  }
 
-    async delete(userId) {
-        return await User.findByIdAndDelete(userId);
-    }
+  async delete(userId) {
+    return await UserModel.findByIdAndDelete(userId);
+  }
 }
 
 export const userRepository = new UserRepository();
-

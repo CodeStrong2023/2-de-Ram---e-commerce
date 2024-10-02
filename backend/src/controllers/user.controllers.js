@@ -1,8 +1,9 @@
 import { request, response } from "express";
 import { UserService } from "../services/UserService.js";
+import { NotFoundException } from "../exceptions/exceptions.js";
 
 export class UserController {
-  constructor() { 
+  constructor() {
     this.userService = new UserService();
   }
 
@@ -13,17 +14,19 @@ export class UserController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   getUserById = async (req = request, res = response, next) => {
     try {
       const user = await this.userService.getUserById(req.params.id);
-      if (!user) return res.status(404).json({ message: "User not found" });
+
+      if (!user) throw new NotFoundException("User not found");
+
       res.json(user);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   getAllUsers = async (req = request, res = response, next) => {
     try {
@@ -32,25 +35,25 @@ export class UserController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   updateUser = async (req = request, res = response, next) => {
     try {
       const user = await this.userService.updateUser(req.params.id, req.body);
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) throw new NotFoundException("User not found");
       res.json(user);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   deleteUser = async (req = request, res = response, next) => {
     try {
       const user = await this.userService.deleteUser(req.params.id);
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) throw new NotFoundException("User not found");
       res.json({ message: "User deleted successfully" });
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
