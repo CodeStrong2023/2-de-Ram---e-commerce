@@ -10,7 +10,7 @@ export class UserController {
   createUser = async (req = request, res = response, next) => {
     try {
       const user = await this.userService.createUser(req.body);
-      res.status(201).json(user);
+      res.status(201).json({ status: "ok", user });
     } catch (error) {
       next(error);
     }
@@ -22,7 +22,7 @@ export class UserController {
 
       if (!user) throw new NotFoundException("User not found");
 
-      res.json(user);
+      res.json({ status: "ok", user });
     } catch (error) {
       next(error);
     }
@@ -31,7 +31,7 @@ export class UserController {
   getAllUsers = async (req = request, res = response, next) => {
     try {
       const users = await this.userService.getAllUsers();
-      res.json(users);
+      res.json({ status: "ok", users });
     } catch (error) {
       next(error);
     }
@@ -41,7 +41,7 @@ export class UserController {
     try {
       const user = await this.userService.updateUser(req.params.id, req.body);
       if (!user) throw new NotFoundException("User not found");
-      res.json(user);
+      res.json({ status: "ok", user });
     } catch (error) {
       next(error);
     }

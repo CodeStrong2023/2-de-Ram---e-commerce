@@ -1,13 +1,14 @@
+import { AuthServices } from "../services/auth.services.js";
 
 export class AuthController {
   constructor() {
-    this.authService = new AuthService();
+    this.authService = new AuthServices();
   }
 
   register = async (req = request, res = response, next) => {
     try {
       const user = await this.authService.register(req.body);
-      res.status(201).json(user);
+      res.status(201).json({ status: "ok", user });
     } catch (error) {
       next(error);
     }
@@ -17,15 +18,6 @@ export class AuthController {
     try {
       const { email, password } = req.body;
       const user = await this.authService.login(email, password);
-      res.json(user);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  me = async (req = request, res = response, next) => {
-    try {
-      const user = await this.authService.me(req.user.id);
       res.json(user);
     } catch (error) {
       next(error);
