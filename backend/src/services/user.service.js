@@ -1,46 +1,27 @@
-import userRepository from '../repositories/user.repository.js';
+import { NotFoundException } from "../exceptions/exceptions.js";
+import { userRepository } from "../repositories/user.repository.js";
+export class UserService {
 
-export default  class UserService {
-    async registerUser(userData) {
-        try {
-            return await userRepository.create(userData);
-        } catch (error) {
-            throw new Error(`Error registering user: ${error.message}`);
-        }
-    }
-
-    async getUserById(id) {
-        try {
-            const user = await userRepository.findById(id);
-            if (!user) throw new Error('User not found');
-            return user;
-        } catch (error) {
-            throw new Error(`Error retrieving user: ${error.message}`);
-        }
+    async getUserById(userId) {
+        const user = await userRepository.findById(userId);
+        if(!user) throw new NotFoundException('User not found');
+        return 
     }
 
     async getAllUsers() {
-        try {
-            return await userRepository.findAll();
-        } catch (error) {
-            throw new Error(`Error retrieving users: ${error.message}`);
-        }
+        return await userRepository.findAll();
     }
 
-    async updateUser(id, updateData) {
-        try {
-            return await userRepository.update(id, updateData);
-        } catch (error) {
-            throw new Error(`Error updating user: ${error.message}`);
-        }
+    async updateUser(userId, userData) {
+        const user = await userRepository.update(userId, userData);
+        if (!user) throw new NotFoundException('User not found');
+        return user;
     }
 
-    async deleteUser(id) {
-        try {
-            return await userRepository.delete(id);  // Borrado lógico
-        } catch (error) {
-            throw new Error(`Error deleting user: ${error.message}`);
-        }
+    async deleteUser(userId) {
+        const user = await userRepository.delete(userId);
+        if (!user) throw new NotFoundException('User not found');
+        return user;
     }
 }
 
