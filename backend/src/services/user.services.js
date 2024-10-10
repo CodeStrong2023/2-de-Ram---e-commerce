@@ -1,6 +1,8 @@
+import { userRepository } from "../repositories/user.repository.js";
 
 
 export class UserService {
+   
     async createUser(userData) {
         // Aquí puedes agregar lógica como encriptación de contraseñas o validaciones adicionales
         return await userRepository.create(userData);
@@ -23,4 +25,5 @@ export class UserService {
     }
 }
 
+export const userService = new UserService();
 

@@ -1,4 +1,4 @@
-import { UserModel } from "../models/UserModel.model.js";
+import { UserModel } from "../models/user.model.js";
 
 
 
@@ -11,6 +11,10 @@ class UserRepository {
 
   async findById(userId) {
     return await UserModel.findById(userId);
+  }
+
+  async findByEmail(email) {
+    return await UserModel.findOne({ email });
   }
 
   async findAll() {

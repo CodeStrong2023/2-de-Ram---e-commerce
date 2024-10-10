@@ -7,6 +7,7 @@ export class AuthController {
 
   register = async (req = request, res = response, next) => {
     try {
+      console.log(req.body);
       const user = await this.authService.register(req.body);
       res.status(201).json({ status: "ok", user });
     } catch (error) {
@@ -24,3 +25,5 @@ export class AuthController {
     }
   };
 }
+
+export const authController = new AuthController();
