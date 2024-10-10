@@ -9,7 +9,6 @@ const app = express();
 
 app.use(express.json());
 
-
 // Rutas de la API
 app.use("/api", routes);
 
