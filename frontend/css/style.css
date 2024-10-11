@@ -1,22 +1,29 @@
 :root {
   /* definir variables de colores y fonts */
-  --color-primary: #f3f3f3;
-  --color-primary-hover: #f3f3f3;
-  --color-secondary: #f3f3f3;
-  --color-tertiary: #f3f3f3;
-  --color-button: #f3f3f3;
-  --color-text: #f3f3f3;
-  --color-text-secondary: #f3f3f3;
+  --color-primary: #6d1994;
+  --color-primary-dark: #4c086c;
+  --color-primary-darkest: #2c0240;
+  --color-primary-light: #8443a3;
+  --color-primary-lightest: #bb90d0;
+  --color-secondary: #16b216;
+  --color-secondary-dark: #048104;
+  --color-secondary-darkest: #004d00;
+  --color-secondary-light: #4bc44b;
+  --color-secondary-lightest: #99e399;
+  --color-tertiary: #d9de1c;
+  --color-tertiary-dark: #9da104;
+  --color-tertiary-darkest: #5e6000;
+  --color-tertiary-light: #f0f35d;
+  --color-tertiary-lightest: #fcfeac;
+  --color-button: var(--color-secondary);
+  --color-text: var(--color-blackl);
+  --color-text-secondary: var(--color-white);
+  --color-success: #3cdb3c;
+  --color-error: #df1c1c;
   --color-white: #f3f3f3;
-  --color-black: #f3f3f3;
-  --color-success: #f3f3f3;
-  --color-error: #f3f3f3;
-  --color-warning: #f3f3f3;
-  --color-info: #f3f3f3;
-  --color-secondary-hover: #f3f3f3;
-  --color-tertiary-hover: #f3f3f3;
-  --color-button-hover: #f3f3f3;
-  --color-text-hover: #f3f3f3;
+  --color-black: #242424;
+
+  
     
 }
 
