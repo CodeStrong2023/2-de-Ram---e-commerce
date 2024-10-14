@@ -5,53 +5,41 @@ import { ticketRepository } from "../repositories/ticket.repository.js";
 
 export default class CartService {
   async addToCart(userId, productId, quantity) {
-    try {
-      const cart = await cartRepository.findCartByUserId(userId);
-      const product = await productRepository.findProductById(productId);
-      if (!product) throw new Error("Product not found");
+    const cart = await cartRepository.findCartByUserId(userId);
+    const product = await productRepository.findProductById(productId);
+    if (!product) throw new NotFoundException("Product not found");
 
-      const subtotal = product.price * quantity;
+    const subtotal = product.price * quantity;
 
-      if (!cart) {
-        const newCart = {
-          userId,
-          products: [{ productId, quantity, price: product.price, subtotal }],
-          total: subtotal,
-        };
-        return await cartRepository.createCart(newCart);
+    if (!cart) {
+      const newCart = {
+        userId,
+        products: [{ productId, quantity, price: product.price, subtotal }],
+        total: subtotal,
+      };
+      return await cartRepository.createCart(newCart);
+    } else {
+      const existingProduct = cart.products.find((p) => p.productId.toString() === productId);
+      if (existingProduct) {
+        existingProduct.quantity += quantity;
+        existingProduct.subtotal = existingProduct.price * existingProduct.quantity;
       } else {
-        const existingProduct = cart.products.find((p) => p.productId.toString() === productId);
-        if (existingProduct) {
-          existingProduct.quantity += quantity;
-          existingProduct.subtotal = existingProduct.price * existingProduct.quantity;
-        } else {
-          cart.products.push({ productId, quantity, price: product.price, subtotal });
-        }
-
-        cart.total = cart.products.reduce((acc, prod) => acc + prod.subtotal, 0);
-        return await cartRepository.updateCart(cart);
+        cart.products.push({ productId, quantity, price: product.price, subtotal });
       }
-    } catch (error) {
-      throw new Error(`Error adding to cart: ${error.message}`);
+
+      cart.total = cart.products.reduce((acc, prod) => acc + prod.subtotal, 0);
+      return await cartRepository.updateCart(cart);
     }
   }
 
   async getCartByUserId(userId) {
-    try {
-      const cart = await cartRepository.findCartByUserId(userId);
-      if (!cart) throw new Error("Cart not found");
-      return cart;
-    } catch (error) {
-      throw new Error(`Error retrieving cart: ${error.message}`);
-    }
+    const cart = await cartRepository.findCartByUserId(userId);
+    if (!cart) throw new NotFoundException("Cart not found");
+    return cart;
   }
 
   async deleteCart(cartId) {
-    try {
-      return await cartRepository.deleteCart(cartId); // Borrado lógico
-    } catch (error) {
-      throw new Error(`Error deleting cart: ${error.message}`);
-    }
+    return await cartRepository.deleteCart(cartId); // Borrado lógico
   }
 
   async purchaseCart(user) {
@@ -71,10 +59,20 @@ export default class CartService {
     if (!newTicket) throw new ConflictException("Error creating ticket");
 
     // Enviamos el ticket por correo electrónico
+    //TODO implementar envío de correo electrónico
 
-      // Limpiamos el carrito
-      //! Revisar
-    await cartRepository.updateCart({ ...cart, products: [], total: 0 });
+    // Limpiamos el carrito
+    await cartRepository.updateCart({ ...cart, products: []});
+    // Restamos el stock de los productos
+    Promise.all(
+      cart.products.map(async (prod) => {
+        const product = await productRepository.findProductById(prod.productId);
+        if (product) {
+          product.stock -= prod.quantity;
+          await productRepository.updateProduct(product);
+        }
+      })
+    );
 
     return await cartRepository.updateCart(cart);
   }
