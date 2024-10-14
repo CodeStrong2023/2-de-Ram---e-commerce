@@ -8,7 +8,10 @@ export default class CartController {
 
   addToCart = async (req = request, res = response, next) => {
     try {
-      const { userId, productId, quantity } = req.body;
+      const { productId, quantity } = req.body;
+
+      const userId = req.session.user.id;
+
       const cart = await this.cartService.addToCart(userId, productId, quantity);
       res.status(200).json(cart);
     } catch (error) {

@@ -18,7 +18,14 @@ export class AuthController {
     try {
       const { email, password } = req.body;
       const user = await this.authService.login(email, password);
-      res.json(user);
+      // Guardamos la sesión del usuario
+      req.session.user = {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+      };
+      res.json({ status: "ok", user });
     } catch (error) {
       next(error);
     }

@@ -1,4 +1,4 @@
-import cartRepository from '../repositories/cart.repository.js';
+import { cartRepository } from '../repositories/cart.repository.js';
 import productRepository from '../repositories/product.repository.js';
 
 export default class CartService {
