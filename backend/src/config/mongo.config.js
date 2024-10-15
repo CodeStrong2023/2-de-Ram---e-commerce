@@ -1,0 +1,15 @@
+import mongoose from 'mongoose';
+import config from './envs.config.js'; // Ajusta la ruta si es necesario
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(config.MONGO_URL);
+
+    console.log(`MongoDB Connected`);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);  // Opcional: Salir del proceso si no se puede conectar a la base de datos
+  }
+};
+
+export default connectDB;
