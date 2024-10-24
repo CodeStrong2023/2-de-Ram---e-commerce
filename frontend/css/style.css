@@ -106,6 +106,7 @@ header{
   background-color: coral;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
   padding: 10px;
 }
 
@@ -115,7 +116,7 @@ header{
 }
 
 .header__logo img{
-  height: 125px;
+  height: 175px;
   margin-right: 10px;
 }
 
