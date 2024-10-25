@@ -112,11 +112,11 @@ header{
 }
 
 /* disable links */
-.header__menu--disable{
+/* .header__menu--disable{
   pointer-events: none;
   cursor: default;
   color: var(--color-text-primary);
-}
+} */
 
 header div{
   border-radius: 10px;
