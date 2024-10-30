@@ -43,11 +43,11 @@ body {
   /* background-image: linear-gradient(315deg, var(--color-black) 0%, var(--color-white) 74%); */
 }
 
-img{
+img {
   border-radius: 10px;
 }
 
-ul li{
+ul li {
   list-style-type: none;
 }
 
@@ -109,20 +109,20 @@ ul li{
 
 
 /* header  */
-header{
+header {
   padding: 25px;
   text-align: center;
   background-color: var(--color-secondary);
 }
 
 /* disable links */
-.header__menu--disable{
+.header__menu--disable {
   pointer-events: none;
   cursor: default;
   color: var(--color-text-primary);
 }
 
-header div{
+header div {
   border-radius: 10px;
   background-color: var(--color-white);
 }
@@ -133,7 +133,7 @@ header img {
 }
 
 @media (max-width: 900px) {
-  header{
+  header {
     background-position: center;
   }
 }
@@ -152,24 +152,25 @@ header img {
 }
 
 
-.navbar a{
+.navbar a {
   color: #242424;
   padding: 10px 20px;
   text-decoration: none;
   font-size: 24px;
 }
 
-.navbar a:hover{
+.navbar a:hover {
   background-color: var(--color-secondary-darkest);
   color: var(--color-white);
 }
 
 @media (max-width: 900px) {
-  .navbar{
+  .navbar {
     flex-direction: column;
     position: unset;
   }
-  .navbar a{
+
+  .navbar a {
     text-align: center;
   }
 }
@@ -297,11 +298,58 @@ header img {
 
 .remove-bg {
   -webkit-filter: brightness(1.1);
-  filter: brightness(1.5) ;
+  filter: brightness(1.5);
   mix-blend-mode: multiply;
 }
 
 /* footer */
+.footer {
+  background-color: var(--color-primary-darkest);
+  color: var(--color-white);
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer img {
+  height: 200px;
+  padding: 5px;
+}
+
+.footer .footer__brand p {
+  font-size: 24px;
+}
+
+footer .footer__team--links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.footer .footer__team div {
+  margin-top: 50px;
+  font-size: 20px;
+  text-align: right;
+
+}
+
+.footer .footer__team  .footer__list li {
+  padding: 5px 0;
+  text-align: right;
+}
+.footer .footer__team  .footer__list a {
+  color: var(--color-tertiary);
+  text-decoration: none;
+  font-size: 18px;
+}
+.footer .footer__team  .footer__list a:hover {
+  color: var(--color-primary-lightest);
+}
 
 
 
