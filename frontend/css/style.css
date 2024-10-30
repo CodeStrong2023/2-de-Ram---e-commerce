@@ -47,6 +47,10 @@ img{
   border-radius: 10px;
 }
 
+ul li{
+  list-style-type: none;
+}
+
 /* fonts */
 /* fredoca para titulos y texto importante */
 
@@ -108,19 +112,19 @@ img{
 header{
   padding: 25px;
   text-align: center;
-  background-color: #3cdb3c;
+  background-color: var(--color-secondary);
 }
 
 /* disable links */
-/* .header__menu--disable{
+.header__menu--disable{
   pointer-events: none;
   cursor: default;
   color: var(--color-text-primary);
-} */
+}
 
 header div{
   border-radius: 10px;
-  background-color: white;
+  background-color: var(--color-white);
 }
 
 header img {
@@ -134,27 +138,30 @@ header img {
   }
 }
 
-.navbar{
+
+.navbar {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #d9de1c;
+  background-color: var(--color-tertiary-light);
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
+
 .navbar a{
   color: #242424;
   padding: 10px 20px;
   text-decoration: none;
-  font-weight: 600;
+  font-size: 24px;
 }
 
 .navbar a:hover{
-  background-color: #004d00;
-  color: #f3f3f3;
+  background-color: var(--color-secondary-darkest);
+  color: var(--color-white);
 }
 
 @media (max-width: 900px) {
@@ -295,3 +302,68 @@ header img {
 }
 
 /* footer */
+
+
+
+/* login page */
+
+.body__login {
+  background-color: var(--color-white);
+  background-image: linear-gradient(315deg, var(--color-black) 0%, var(--color-white) 74%);
+}
+
+.login__container {
+  max-width: 800px;
+  width: 20%;
+  margin: 5% auto;
+  padding: 10px;
+}
+
+.login__card {
+  background-color: var(--color-white);
+  border-radius: 6px;
+  padding: 50px;
+  box-shadow: 10px 13px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
