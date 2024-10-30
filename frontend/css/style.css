@@ -125,11 +125,23 @@ header {
 header div {
   border-radius: 10px;
   background-color: var(--color-white);
+  outline: auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 header img {
   height: 200px;
-  padding: 5px;
+  outline: auto;
+  margin-right: 8rem;
+}
+
+.header__title{
+  font-size: 140px;
+  text-align: center;
+  color: var(--color-secondary);
+  text-shadow: 2px 2px 4px #000000;
 }
 
 @media (max-width: 900px) {
