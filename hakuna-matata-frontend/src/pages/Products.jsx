@@ -1,7 +1,9 @@
 // src/pages/Products.jsx
+
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import ProductCard from '../components/ProductCard';
+import axios from 'axios';
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -9,7 +11,7 @@ function Products() {
 
     // Obtener los productos al cargar la página
     useEffect(() => {
-        axios.get('http://localhost:3000/api/products')
+        axios.get('http://localhost:8080/api/products')
             .then(response => setProducts(response.data))
             .catch(error => console.error("Error fetching products:", error));
     }, []);

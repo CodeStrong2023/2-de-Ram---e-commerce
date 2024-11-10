@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import axios from 'axios';
 
 function Register() {
@@ -13,8 +14,17 @@ function Register() {
 
         try {
             const userData = { firstName, lastName, email, password };
-            const response = await axios.post('localhost:3000/api/auth/register', userData);
-            console.log('User registered successfully:', response.data);
+            // const response = await axios.post('localhost:8080/api/auth/register', userData);
+            const response = await fetch("http://localhost:8080/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+            const data = await response.json();
+            console.log('User registered successfully:', data);
+            
             // Puedes redirigir o mostrar un mensaje de éxito aquí
         } catch (err) {
             setError('Error al registrar el usuario');
