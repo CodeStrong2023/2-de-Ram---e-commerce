@@ -1,8 +1,9 @@
 import { ConflictException, NotFoundException } from "../exceptions/exceptions.js";
+
 import { cartRepository } from "../repositories/cart.repository.js";
 import productRepository from "../repositories/product.repository.js";
-import { ticketRepository } from "../repositories/ticket.repository.js";
 import { sendMail } from "../utils/sendEmail.js";
+import { ticketRepository } from "../repositories/ticket.repository.js";
 
 export default class CartService {
   async addToCart(userId, productId, quantity) {
@@ -25,10 +26,11 @@ export default class CartService {
         existingProduct.quantity += quantity;
         existingProduct.subtotal = existingProduct.price * existingProduct.quantity;
       } else {
-        cart.products.push({ productId, quantity, price: product.price, subtotal });
+        cart.products.push({ productId, quantity, price: product.price, subtotal, name: product.name });
       }
 
       cart.total = cart.products.reduce((acc, prod) => acc + prod.subtotal, 0);
+      
       return await cartRepository.updateCart(cart);
     }
   }

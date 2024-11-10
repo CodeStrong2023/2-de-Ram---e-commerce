@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
 import Product from "./product.model.js"; // Suponiendo que los productos están referenciados
+import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 export const cartCollectionName = "carts";
 
@@ -14,6 +14,18 @@ const cartProductSchema = new Schema({
     type: Number,
     required: true,
     min: [1, "Quantity cannot be less than 1."],
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  subtotal: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
   },
 });
 
@@ -29,6 +41,10 @@ const cartSchema = new mongoose.Schema(
       default: [],
     },
     isDeleted: { type: Boolean, default: false }, // Borrado lógico del carrito
+    total: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -1,12 +1,14 @@
 // src/App.jsx
+
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import Cart from './pages/Cart';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Products from './pages/Products';
-import Cart from './pages/Cart';
 import Login from './pages/Login';
+import Navbar from './components/Navbar';
+import Products from './pages/Products';
 import Register from './pages/Register';
 
 function App() {

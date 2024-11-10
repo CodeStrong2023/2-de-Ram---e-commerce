@@ -10,7 +10,7 @@ const isLoginMiddleware = new IsLoginMiddleware();
 const router = Router();
 
 router.use("/auth", authRoutes);
-// router.use(isLoginMiddleware.isLogin); // Middleware para proteger rutas de usuarios no logueados
+router.use(isLoginMiddleware.isLogin); // Middleware para proteger rutas de usuarios no logueados
 router.use("/users", userRoutes);
 router.use("/cart", cartRoutes);
 router.use("/products", productRoutes);

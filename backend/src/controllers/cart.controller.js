@@ -1,4 +1,5 @@
 import { request, response } from "express";
+
 import CartService from "../services/cart.service.js";
 
 export default class CartController {
@@ -9,10 +10,10 @@ export default class CartController {
   addToCart = async (req = request, res = response, next) => {
     try {
       const { productId, quantity } = req.body;
-
-      const userId = req.session.user.id;
+      const userId = req.user.id;
 
       const cart = await this.cartService.addToCart(userId, productId, quantity);
+      
       res.status(200).json(cart);
     } catch (error) {
       next(error);
@@ -21,8 +22,9 @@ export default class CartController {
 
   getCartByUserId = async (req = request, res = response, next) => {
     try {
-      const cart = await this.cartService.getCartByUserId(req.params.userId);
+      const cart = await this.cartService.getCartByUserId(req.user.id);
       if (!cart) return res.status(404).json({ message: "Cart not found" });
+      console.log(cart);
       res.json(cart);
     } catch (error) {
       next(error);

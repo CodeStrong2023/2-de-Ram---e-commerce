@@ -7,7 +7,7 @@ class CartRepository {
     }
 
     async findCartByUserId(userId) {
-        return await Cart.findOne({ userId, isDeleted: false }).populate('products.productId');
+        return await Cart.findOne({userId: userId});
     }
 
     async updateCart(cart) {
