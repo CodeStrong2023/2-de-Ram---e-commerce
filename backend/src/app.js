@@ -1,9 +1,10 @@
-import express from "express";
 import connectDB from "./config/mongo.config.js";
+import cors from "cors";
+import envsConfig from "./config/envs.config.js";
+import { errorHandler } from "./exceptions/errorHandler.js";
+import express from "express";
 import routes from "./routes/index.routes.js";
 import session from "express-session";
-import { errorHandler } from "./exceptions/errorHandler.js";
-import envsConfig from "./config/envs.config.js";
 
 // Conectar a la base de datos
 connectDB();
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Configuración de la sesión
 app.use(

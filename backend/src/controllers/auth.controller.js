@@ -17,6 +17,7 @@ export class AuthController {
   login = async (req = request, res = response, next) => {
     try {
       const { email, password } = req.body;
+      console.log(email, password);
       const user = await this.authService.login(email, password);
       // Guardamos la sesión del usuario
       req.session.user = {
