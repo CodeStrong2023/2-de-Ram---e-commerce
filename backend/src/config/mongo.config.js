@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
 import config from './envs.config.js'; // Ajusta la ruta si es necesario
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(config.MONGO_URL);
-
     console.log(`MongoDB Connected`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
