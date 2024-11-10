@@ -22,6 +22,8 @@
     "nodemailer": "^6.9.15"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express-session": "^1.18.0",
     "nodemon": "^3.1.4"
   }
 }
