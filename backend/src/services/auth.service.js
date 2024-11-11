@@ -19,7 +19,7 @@ export class AuthServices {
     if (!user) throw new NotImplementedException("User not created");
 
     // Crear carrito para el usuario
-    const cart = await cartRepository.create({ userId: user._id });
+    const cart = await cartRepository.createCart({ userId: user._id });
 
     return { user: new UserResponseDto(user), cart };
   }

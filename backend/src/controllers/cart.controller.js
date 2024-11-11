@@ -13,7 +13,7 @@ export default class CartController {
       const userId = req.user.id;
 
       const cart = await this.cartService.addToCart(userId, productId, quantity);
-      
+
       res.status(200).json(cart);
     } catch (error) {
       next(error);
@@ -24,7 +24,7 @@ export default class CartController {
     try {
       const cart = await this.cartService.getCartByUserId(req.user.id);
       if (!cart) return res.status(404).json({ message: "Cart not found" });
-      console.log(cart);
+
       res.json(cart);
     } catch (error) {
       next(error);

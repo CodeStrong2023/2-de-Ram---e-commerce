@@ -1,22 +1,21 @@
 // src/pages/Login.jsx
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
-import api from "../utils/axios";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
       const userData = { email, password };
-
-      const response = await api.post("/auth/login", userData);
-      console.log("User logged in successfully:", response.data);
-
-      // Puedes redirigir o mostrar un mensaje de éxito aquí
+      // Llamar a la función de login del contexto
+      await login(userData);
+      
     } catch (error) {
       console.log("Error al iniciar sesión:", error);
     }
