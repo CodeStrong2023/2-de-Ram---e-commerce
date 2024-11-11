@@ -1,8 +1,6 @@
-// src/pages/Cart.jsx
-
 import React, { useEffect, useState } from "react";
-
 import api from "../utils/axios";
+import { createPaymentPreference } from "../service/paymentService";  // Asegúrate de crear este servicio
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -24,7 +22,8 @@ function Cart() {
 
     fetchCart();
   }, []);
-  console.log(cart);
+
+  // Renderizar los productos del carrito
   const renderCartItems = () => {
     if (loading) {
       return <p>Cargando carrito...</p>;
@@ -63,6 +62,27 @@ function Cart() {
     );
   };
 
+  // Manejar el proceso de checkout y redirigir a Mercado Pago
+  const handleCheckout = async () => {
+    try {
+      // Preparar los datos del carrito para enviar al backend
+      const items = cart.map(product => ({
+        name: product.name,
+        quantity: product.quantity,
+        price: product.price,
+      }));
+
+      // Llamar al backend para crear la preferencia de pago
+      const initPoint = await createPaymentPreference(items);
+      
+      // Redirigir a Mercado Pago
+      window.location.href = initPoint; // El usuario será redirigido al link de Mercado Pago
+    } catch (error) {
+      console.error("Error al procesar el pago:", error);
+      alert('Hubo un problema al procesar el pago. Intenta nuevamente.');
+    }
+  };
+
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold text-primary mb-6">Tu Carrito</h1>
@@ -70,6 +90,16 @@ function Cart() {
       <div className="flex justify-end mt-4">
         <p className="text-xl font-semibold text-primary">Total: ${total.toFixed(2)}</p>
       </div>
+      {cart.length > 0 && (
+        <div className="flex justify-end mt-8">
+          <button
+            onClick={handleCheckout}
+            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-400"
+          >
+            Completar Compra
+          </button>
+        </div>
+      )}
     </div>
   );
 }
