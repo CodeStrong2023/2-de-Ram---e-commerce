@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../utils/axios";
-import { createPaymentPreference } from "../service/paymentService";  // Asegúrate de crear este servicio
+import { createPaymentPreference } from "../service/paymentService";
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -23,7 +23,44 @@ function Cart() {
     fetchCart();
   }, []);
 
-  // Renderizar los productos del carrito
+ // Función para aumentar la cantidad de un producto
+ const increaseProductQuantity = async (productId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await api.patch(
+      `/cart/increase/${productId}`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setCart(response.data.products);
+    setTotal(response.data.total);
+  } catch (error) {
+    console.error("Error al aumentar la cantidad del producto:", error);
+    alert("Hubo un problema al actualizar la cantidad. Intenta nuevamente.");
+  }
+};
+
+// Función para disminuir la cantidad de un producto
+const decreaseProductQuantity = async (productId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await api.patch(
+      `/cart/decrease/${productId}`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setCart(response.data.products);
+    setTotal(response.data.total);
+  } catch (error) {
+    console.error("Error al disminuir la cantidad del producto:", error);
+    alert("Hubo un problema al actualizar la cantidad. Intenta nuevamente.");
+  }
+};
+
   const renderCartItems = () => {
     if (loading) {
       return <p>Cargando carrito...</p>;
@@ -41,7 +78,8 @@ function Cart() {
               <th className="text-left p-4 text-primary font-bold rounded-tl-lg">Producto</th>
               <th className="text-center p-4 text-primary font-bold">Cantidad</th>
               <th className="text-center p-4 text-primary font-bold">Precio</th>
-              <th className="text-right p-4 text-primary font-bold rounded-tr-lg">Subtotal</th>
+              <th className="text-right p-4 text-primary font-bold">Subtotal</th>
+              <th className="text-center p-4 text-primary font-bold rounded-tr-lg">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -52,8 +90,22 @@ function Cart() {
               >
                 <td className="text-left p-4">{product.name}</td>
                 <td className="text-center p-4">{product.quantity}</td>
-                <td className="text-center p-4">{product.price}</td>
-                <td className="text-right p-4">${product.subtotal}</td>
+                <td className="text-center p-4">${product.price.toFixed(2)}</td>
+                <td className="text-right p-4">${product.subtotal.toFixed(2)}</td>
+                <td className="text-center p-4">
+                  <button
+                    onClick={() => increaseProductQuantity(product.productId, 1)}
+                    className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-blue-400 mx-1"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => decreaseProductQuantity(product.productId, -1)}
+                    className="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-400 mx-1"
+                  >
+                    -
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -62,24 +114,19 @@ function Cart() {
     );
   };
 
-  // Manejar el proceso de checkout y redirigir a Mercado Pago
   const handleCheckout = async () => {
     try {
-      // Preparar los datos del carrito para enviar al backend
-      const items = cart.map(product => ({
+      const items = cart.map((product) => ({
         name: product.name,
         quantity: product.quantity,
         price: product.price,
       }));
 
-      // Llamar al backend para crear la preferencia de pago
       const initPoint = await createPaymentPreference(items);
-      
-      // Redirigir a Mercado Pago
-      window.location.href = initPoint; // El usuario será redirigido al link de Mercado Pago
+      window.location.href = initPoint;
     } catch (error) {
       console.error("Error al procesar el pago:", error);
-      alert('Hubo un problema al procesar el pago. Intenta nuevamente.');
+      alert("Hubo un problema al procesar el pago. Intenta nuevamente.");
     }
   };
 

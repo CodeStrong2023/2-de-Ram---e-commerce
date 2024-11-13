@@ -12,7 +12,7 @@ function Navbar() {
     <nav className="bg-primary text-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Hakuna Matata</h1>
-        {user && <p>Hola, {user.firstName}</p>}
+        {user && <p>Sesión iniciada por: {user.firstName} {user.lastName}</p>}
         <ul className="flex space-x-8">
           <li>
             <Link to="/" className="hover:text-secondary">
@@ -46,9 +46,11 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <button onClick={logout} className="hover:text-secondary">
-                  Logout
-                </button>
+                <Link to="/" className="hover:text-secondary">
+                  <button onClick={logout} className="hover:text-secondary">
+                    Logout
+                  </button>
+                </Link>
               </li>
             </>
           )}
