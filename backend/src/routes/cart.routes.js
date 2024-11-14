@@ -8,8 +8,6 @@ const router = Router();
 
 router.post('/', isLoginMiddleware.isLogin, cartController.addToCart); // Asegúrate de que `addToCart` esté definido
 router.get('/', isLoginMiddleware.isLogin, cartController.getCartByUserId); // Asegúrate de que `getCartByUserId` esté definido
-router.put('/cart/increase/:productId',isLoginMiddleware.isLogin, cartController.increaseProductQuantity);
-router.put('/cart/decrease/:productId',isLoginMiddleware.isLogin, cartController.decreaseProductQuantity);
 router.delete('/:cartId', isLoginMiddleware.isLogin, cartController.deleteCart); // Asegúrate de que `deleteCart` esté definido
 
 

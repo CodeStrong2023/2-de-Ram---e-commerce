@@ -20,40 +20,6 @@ export default class CartController {
     }
   };
 
-  increaseProductQuantity = async (req = request, res = response, next) => {
-    try {
-      const { productId, adjustment } = req.body;
-      const userId = req.user.id;
-
-      const updatedCart = await this.cartService.updateProductQuantity(userId, productId, adjustment);
-
-      res.status(200).json({
-        message: "Product quantity increased successfully",
-        cart: updatedCart,
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  // Método para disminuir la cantidad de productos
-  decreaseProductQuantity = async (req = request, res = response, next) => {
-    try {
-      const {  productId, adjustment } = req.body;
-      const userId = req.user.id;
-
-      const updatedCart = await this.cartService.decreaseProductQuantity(userId, productId, adjustment);
-
-      res.status(200).json({
-        message: "Product quantity decreased successfully",
-        cart: updatedCart,
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-
   getCartByUserId = async (req = request, res = response, next) => {
     try {
       const cart = await this.cartService.getCartByUserId(req.user.id);

@@ -34,13 +34,13 @@ const cartSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User", 
+      ref: "User", // Si tienes un modelo de usuario
     },
     products: {
-      type: [cartProductSchema], 
+      type: [cartProductSchema], // Lista de productos con cantidad
       default: [],
     },
-    isDeleted: { type: Boolean, default: false }, 
+    isDeleted: { type: Boolean, default: false }, // Borrado lógico del carrito
     total: {
       type: Number,
       default: 0,
