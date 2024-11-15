@@ -1,8 +1,9 @@
-import { UserResponseDto } from "../dtos/user-response.dto.js";
 import { BadRequestException, NotImplementedException } from "../exceptions/exceptions.js";
+import { createHash, isValidPassword } from "../utils/hashPassword.js";
+
+import { UserResponseDto } from "../dtos/user-response.dto.js";
 import { cartRepository } from "../repositories/cart.repository.js";
 import { userRepository } from "../repositories/user.repository.js";
-import { createHash, isValidPassword } from "../utils/hashPassword.js";
 
 export class AuthServices {
   constructor() {}
@@ -18,7 +19,7 @@ export class AuthServices {
     if (!user) throw new NotImplementedException("User not created");
 
     // Crear carrito para el usuario
-    const cart = await cartRepository.create({ userId: user._id });
+    const cart = await cartRepository.createCart({ userId: user._id });
 
     return { user: new UserResponseDto(user), cart };
   }

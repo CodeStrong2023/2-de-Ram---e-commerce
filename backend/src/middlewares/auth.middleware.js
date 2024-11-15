@@ -15,6 +15,7 @@ export class AuthMiddlewares {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
+
       if (!email || !password) throw new BadRequestException("Email and password are required");
       next();
     } catch (error) {

@@ -1,6 +1,8 @@
 import { ConflictException, NotFoundException } from "../exceptions/exceptions.js";
+
 import { cartRepository } from "../repositories/cart.repository.js";
 import productRepository from "../repositories/product.repository.js";
+import { sendMail } from "../utils/sendEmail.js";
 import { ticketRepository } from "../repositories/ticket.repository.js";
 
 export default class CartService {
@@ -24,10 +26,11 @@ export default class CartService {
         existingProduct.quantity += quantity;
         existingProduct.subtotal = existingProduct.price * existingProduct.quantity;
       } else {
-        cart.products.push({ productId, quantity, price: product.price, subtotal });
+        cart.products.push({ productId, quantity, price: product.price, subtotal, name: product.name });
       }
 
       cart.total = cart.products.reduce((acc, prod) => acc + prod.subtotal, 0);
+      
       return await cartRepository.updateCart(cart);
     }
   }
@@ -59,10 +62,15 @@ export default class CartService {
     if (!newTicket) throw new ConflictException("Error creating ticket");
 
     // Enviamos el ticket por correo electrónico
-    //TODO implementar envío de correo electrónico
+    await sendMail(
+      user.userEmail,
+      "Realizaste una compra",
+      "Su código de compra",
+      `<h2>Muchas gracias por su compra, su código de compra es ${newTicket.code}</h2>`
+    );
 
     // Limpiamos el carrito
-    await cartRepository.updateCart({ ...cart, products: []});
+    await cartRepository.updateCart({ ...cart, products: [] });
     // Restamos el stock de los productos
     Promise.all(
       cart.products.map(async (prod) => {
